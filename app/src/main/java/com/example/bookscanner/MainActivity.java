@@ -3,6 +3,7 @@ package com.example.bookscanner;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -10,6 +11,11 @@ import android.widget.Toast;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
+
+import org.litepal.crud.DataSupport;
+import org.litepal.tablemanager.Connector;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ZXingLibrary.initDisplayOpinion(this);
+        Connector.getDatabase();
         Button scanButton = (Button)findViewById(R.id.scan_button);
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,5 +57,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(new Intent(MainActivity.this,CaptureActivity.class),REQUEST_CODE);
             }
         });
+        Button historyButton = (Button) findViewById(R.id.history_button);
+        historyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,HistoryActivity.class));
+//                List<Book> books= DataSupport.findAll(Book.class);
+//                for(Book book:books){
+//                    Log.d("MainActivity","book title is"+book.getTitle());
+//                }
+            }
+        });
+
     }
 }

@@ -198,10 +198,10 @@
 
 
     <TextView
-            android:text="TextView"
-            android:layout_width="match_parent"
-            android:layout_height="235dp"
-            android:id="@+id/summary_textview"
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="235dp"
+        android:id="@+id/summary_textview"
         tools:maxLines="11"
         android:scrollbars="vertical"
         android:layout_marginLeft="10dp"
