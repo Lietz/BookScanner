@@ -10,14 +10,6 @@
     android:weightSum="1">
 
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
-        android:id="@+id/cover_imageview"
-        android:layout_marginBottom="2dp"
-        android:layout_marginTop="3dp" />
-
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
@@ -200,7 +192,7 @@
     <TextView
         android:text="TextView"
         android:layout_width="match_parent"
-        android:layout_height="235dp"
+        android:layout_height="275dp"
         android:id="@+id/summary_textview"
         tools:maxLines="11"
         android:scrollbars="vertical"

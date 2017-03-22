@@ -1,6 +1,8 @@
 package com.example.bookscanner;
 
 
+import android.graphics.Bitmap;
+
 import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
@@ -33,6 +35,16 @@ public class Book extends DataSupport{
     private String isbn;
     private String summary;
     private String publisher;
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    private Bitmap bitmap;
 
     public String getAuthors() {
         return authors;

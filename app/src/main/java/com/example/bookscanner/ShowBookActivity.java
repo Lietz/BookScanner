@@ -1,6 +1,7 @@
 package com.example.bookscanner;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import org.litepal.crud.DataSupport;
 
 import java.util.List;
+
+import static com.example.bookscanner.InformationActivity.getHttpBitmap;
 
 public class ShowBookActivity extends AppCompatActivity {
 
@@ -33,7 +36,10 @@ public class ShowBookActivity extends AppCompatActivity {
         });
 
         Log.d("bookdbauthors",book.getAuthors());
-       setView(book);
+       // Bitmap bitmap=getHttpBitmap(book.getImage());
+      //  book.setBitmap(bitmap);
+       //  Log.d("bookimage",book.getBitmap().toString());
+        setView(book);
     }
     public  void setView(Book book){
         TextView titleTextView=(TextView)findViewById(R.id.title_textview);

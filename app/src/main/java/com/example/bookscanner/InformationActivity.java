@@ -1,6 +1,8 @@
 package com.example.bookscanner;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Handler;
@@ -48,6 +50,7 @@ public class InformationActivity extends AppCompatActivity {
                     Log.d("bookauthorhandle", book.toString());
                     Log.d("bookauthorhandle", book.getAuthors());
                     Log.d("bookauthorhandle", book.getSubtitle());
+                    Log.d("bookauthorhandleimage", book.getImage());
                     setView(book);
                     break;
                 default:
@@ -90,6 +93,8 @@ public class InformationActivity extends AppCompatActivity {
     }
 
 
+
+
     public void setView(Book book) {
         TextView titleTextView = (TextView) findViewById(R.id.title_textview);
         TextView subtitleTextView = (TextView) findViewById(R.id.subtitle_textview);
@@ -99,9 +104,10 @@ public class InformationActivity extends AppCompatActivity {
         TextView bindingTextView = (TextView) findViewById(R.id.binding_textview);
         TextView summaryTextView = (TextView) findViewById(R.id.summary_textview);
         TextView publisherTextView = (TextView) findViewById(R.id.publisher_textview);
-        ImageView coverImageView = (ImageView) findViewById(R.id.cover_imageview);
         TextView authorTextView = (TextView) findViewById(R.id.author_textview);
         Button enterdoubanButton = (Button) findViewById(R.id.enter_douban_button);
+
+        ImageView coverImageView = (ImageView) findViewById(R.id.cover_imageview);
         final String bookurl = book.getAlt();
         Log.d("bookurl", bookurl);
         enterdoubanButton.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +131,7 @@ public class InformationActivity extends AppCompatActivity {
         summaryTextView.setMovementMethod(ScrollingMovementMethod.getInstance());
         publisherTextView.setText(book.getPublisher());
         authorTextView.setText(book.getStringAuthors());
-        //coverImageView.setImageResource();
+        coverImageView.setImageBitmap(book.getBitmap());
 
 
     }
@@ -175,7 +181,10 @@ public class InformationActivity extends AppCompatActivity {
 
                         book.setIsbn(result);
                         book.setAuthors(book.getStringAuthors());
+                        Bitmap bitmap=getHttpBitmap(book.getImage());
+                        book.setBitmap(bitmap);
                         Log.d("bookauthor线程authors", book.toString());
+                        Log.d("bookauthorbitmap", book.getBitmap().toString());
                         book.save();
                         Message message = new Message();
                         message.what = SEARCH_SUCCESS;
@@ -225,6 +234,24 @@ public class InformationActivity extends AppCompatActivity {
 //            book.setPrice(book.getPrice());
 //            book.setPublisher(book.getPublisher());
         //  }
+    }
+    public static Bitmap getHttpBitmap(String url){
+        URL myFileURL;
+        Bitmap bitmap=null;
+        try{
+            myFileURL=new URL(url);
+            HttpURLConnection connection=(HttpURLConnection)myFileURL.openConnection();
+            connection.setConnectTimeout(6000);
+          //  connection.setDoInput(true);
+            //connection.setUseCaches(false);
+            connection.connect();
+            InputStream ins=connection.getInputStream();
+            bitmap = BitmapFactory.decodeStream(ins);
+            ins.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return bitmap;
     }
 }
 
